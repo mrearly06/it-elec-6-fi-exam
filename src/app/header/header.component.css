@@ -2,3 +2,8 @@
     flex: 1 1 auto;
   }
   
+  #dropdownMenuButton{
+    background-color: transparent;
+    border: none;
+    color: #fff;;
+  } 

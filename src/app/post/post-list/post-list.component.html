@@ -1,14 +1,64 @@
-<mat-accordion multi="true" *ngIf="posts.length > 0">
-    <mat-expansion-panel *ngFor="let post of posts">
+
+
+<mat-accordion class="panel" multi="true" *ngIf="posts.length > 0">
+  <mat-expansion-panel *ngFor="let post of posts | slice: (currentPage-1) * postsPerPage : currentPage * postsPerPage">
         <mat-expansion-panel-header>{{ post.title }}</mat-expansion-panel-header>
+    <p> <img [src]="getImageUrl(post.imagePath)" style="height:500px;width:700px" alt="Post Image"></p>
+       
         <p> {{post.content}} </p>
         <mat-action-row>
-            <button mat-button color = "primary">EDIT</button>
-            <button mat-button color = "warn">DELETE</button>
-
+            <button mat-button color="primary" (click)="onEditPost(post)">EDIT</button>
+            <button mat-button color="warn" (click)="onDeletePost(post._id)">DELETE</button>
         </mat-action-row>
+        <!-- Comment Section -->
+        <div class="comment-section">
+          <input type="text" placeholder="Add a comment..." [(ngModel)]="newComment[post._id]" />
+          <button mat-button color="accent" (click)="addComment(post._id, newComment[post._id])">Submit Comment</button>       
+         </div>
+         <div *ngIf="comments[post._id] && comments[post._id].length > 0">
+          <div *ngFor="let comment of comments[post._id]">
+            <p><strong>{{comment.username}}:</strong> {{comment.comment}}</p>
+          </div>
+        </div>
     </mat-expansion-panel>
 </mat-accordion>
+<br>
+<div class="pagination-section">
+
+
+  <select class="form-select perpages" aria-label="Default select example" [(ngModel)]="postsPerPage" (ngModelChange)="onPostsPerPageChange()">
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="15">15</option>
+</select>
+
+<!-- post-list.component.html -->
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+     <!-- Previous page link -->
+     <li class="page-item" [class.disabled]="currentPage === 1">
+       <a class="page-link" [routerLink]="['/create-posts', currentPage - 1]" (click)="previousPage()">
+         <span aria-hidden="true">&laquo;</span>
+       </a>
+     </li>
+     <!-- Page links -->
+     <li class="page-item" *ngFor="let page of pages; let i = index" [class.active]="currentPage === page">
+       <a class="page-link" [routerLink]="['/create-posts', page]">{{ page }}</a>
+     </li>
+     <!-- Next page link -->
+     <li class="page-item" [class.disabled]="currentPage === totalPages">
+       <a class="page-link" [routerLink]="['/create-posts', currentPage + 1]" (click)="nextPage()">
+         <span aria-hidden="true">&raquo;</span>
+       </a>
+     </li>
+  </ul>
+ </nav>
+
+</div>
+ <br>
+  
 <p class="info-text mat-body-1" *ngIf="posts.length <= 0">No post added</p>
+
+<router-outlet></router-outlet>
 
 

@@ -1,0 +1,100 @@
+
+  <div class="container" *ngIf="!isSigningUp">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card border-0 shadow rounded-3 my-5">
+          <div class="card-body p-4 p-sm-5">
+            <h5 class="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
+            <form  #signinForm="ngForm" (ngSubmit)="login(signinForm)">
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput"name="email" ngModel required placeholder="name@example.com">
+                <label for="floatingInput">Email address</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="floatingPassword" name="password" ngModel required placeholder="Password">
+                <label for="floatingPassword">Password</label>
+              </div>
+
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
+                <label class="form-check-label" for="rememberPasswordCheck">
+                  Remember password
+                </label>
+              </div>
+              <div class="d-grid">
+                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign
+                  in</button>
+              </div>
+              <span style="text-align: right;"><h4>Create account? <a href="#" routerLink="/authentication" (click)="isSigningUp = true">Sign Up</a></h4></span>
+              <hr class="my-4">
+              <div class="d-grid mb-2">
+                <button class="btn btn-google btn-login text-uppercase fw-bold" type="submit">
+                  <i class="fab fa-google me-2"></i> Sign in with Google
+                </button>
+              </div>
+              <div class="d-grid">
+                <button class="btn btn-facebook btn-login text-uppercase fw-bold" type="submit">
+                  <i class="fab fa-facebook-f me-2"></i> Sign in with Facebook
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container" *ngIf="isSigningUp">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card border-0 shadow rounded-3 my-5">
+          <div class="card-body p-4 p-sm-5">
+            <h5 class="card-title text-center mb-5 fw-light fs-5">Sign Up</h5>
+          <form [formGroup]="authForm" (ngSubmit)="register()">
+              <div class="form-floating mb-3">
+                <input type="email" formControlName="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Email address</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" formControlName="username" class="form-control" id="floatingUsername" placeholder="username">
+                  <label for="floatingUsername">Username</label>
+              </div>
+              <div class="form-floating mb-3">
+            <input type="password" formControlName="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+                <small *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger">
+                  {{ password?.errors?.['required']? 'Password is required.' : '' }}
+                  {{ password?.errors?.['minlength']? 'Password must be at least 8 characters long.' : '' }}
+                  {{ password?.errors?.['pattern']? 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.' : '' }}
+
+                </small>
+              </div>
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
+                <label class="form-check-label" for="rememberPasswordCheck">
+                  Remember password
+                </label>
+              </div>
+              <div class="d-grid">
+                <button class="btn btn-success btn-login text-uppercase fw-bold" type="submit">Sign
+                  Up</button>
+              </div>
+              <span style="text-align: right;"><h4>Create account? <a href="#" routerLink="/authentication" (click)="isSigningUp = false">Sign In</a></h4></span>
+              <hr class="my-4">
+              <div class="d-grid mb-2">
+                <button class="btn btn-google btn-login text-uppercase fw-bold" type="submit">
+                  <i class="fab fa-google me-2"></i> Sign in with Google
+                </button>
+              </div>
+              <div class="d-grid">
+                <button class="btn btn-facebook btn-login text-uppercase fw-bold" type="submit">
+                  <i class="fab fa-facebook-f me-2"></i> Sign in with Facebook
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

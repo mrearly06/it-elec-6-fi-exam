@@ -1,9 +1,73 @@
 :host{
     display: block;
     margin-top: 1rem;
+    margin-bottom: 10rem;
+
+    
 }
 
 .info-text{
     text-align: center;
    
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination-controls button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.pagination-controls button:hover {
+    background-color: #e0e0e0;
+}
+
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+   }
+   
+   .page-item {
+    margin: 0 5px;
+   }
+   
+   .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+   }
+   
+   .page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    cursor: auto;
+   }
+   .perpages{
+    width: 70px;
+    
+   }
+   .pagination-section{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+   
+   
+    
+}
+.pagination{
+    margin-top: auto;
+    margin-bottom: auto;
 }

@@ -10,4 +10,82 @@ mat-form-field, textarea{
 }
 
 
+/* In your post-create.component.css */
+.upload-img {
+   
+   
+   width: 100%;
+}
+.upload-img {
+    transition: height 0.3s ease-out; /* Smooth transition */
+    overflow: hidden; /* Hide content that overflows */
+    height: 50px; /* Default height */
+    position: relative;
+    border-bottom: 1px solid 	rgb(216,216,216);
+}
+.upload-btn{
 
+}
+
+.upload-img.expanded {
+    height: 365px; /* Expanded height */
+}
+.custom-file-upload {
+    display: inline-block;
+    width: 250px; /* Adjust the width as needed */
+    height: 250px; /* Adjust the height as needed */
+    border: 2px solid #ccc; /* Add a border */
+    border-radius: 6%;
+    background-color: #f8f8ff; /* Light background color */
+    cursor: pointer; /* Change the cursor to a pointer */
+    text-align: center;
+    line-height: 200px; /* Center the text vertically */
+    color: (192,192,192);
+}
+
+.custom-file-upload:hover {
+    background-color: #e0e0e0; /* Change the background color on hover */
+}
+
+.upload-img img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Ensures the image scales properly */
+    margin: auto; /* Centers the image */
+}
+
+.image-upload-container {
+    position: relative; /* Establish a new positioning context */
+    width: 250px; /* Adjust the width as needed */
+    height: 250px; /* Adjust the height as needed */
+   
+    margin-left: 1.5%;
+}
+
+.image-upload-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensures the image scales properly */
+    
+    margin-left:1%;
+}
+.remove-image-btn {
+    position: absolute;
+    top: 3px;
+    right: 0px;
+    background-color: rgb(208,208,208,0.5); /* Semi-transparent white background */
+    color: 	rgb(0,0,0,0.6); /* Black icon color */
+}
+.upload-controls{
+    display: inline-flex !important;
+    align-items: center;
+    
+}
+.confirm-img-btn{
+    margin-top: 5px;
+    margin-left: 70%;
+    color: aqua;
+}

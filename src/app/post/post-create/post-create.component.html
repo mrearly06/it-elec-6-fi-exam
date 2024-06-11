@@ -1,28 +1,60 @@
-<br><mat-card>
-    <form (submit)="onAddPost(postForm)" #postForm="ngForm">
-    <mat-form-field>
-        <input type="text"
-        matInput
-        type="text"
-        name="title"
-        ngModel
-        required
-        #title="ngModel"
-        />
-        <mat-error *ngIf="title.invalid">Please enter a post title.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-        <textarea
-        matInput
-        rows="4"
-        name="content"
-        ngModel
-        required
-        #content="ngModel"
-        ></textarea>
-        <mat-error *ngIf="content.invalid"></mat-error>
-    </mat-form-field>
+<br>
+<mat-card>
+    <form (submit)="isOkButtonClicked ? (isEditMode ? onUpdatePost(postForm) : onAddPost(postForm)) : null" #postForm="ngForm">
+         <mat-form-field>
+            <input type="text"
+            matInput
+            name="title"
+            ngModel
+            required
+            #title="ngModel"
+            [value]="postToEdit ? postToEdit.title : ''"
+            />
+            <mat-error *ngIf="title.invalid">Please enter a post title.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <textarea
+            matInput
+            rows="4"
+            name="content"
+            ngModel
+            required
+            #content="ngModel"
+            [value]="postToEdit ? postToEdit.content : ''"
+            ></textarea>
+            <mat-error *ngIf="content.invalid"></mat-error>
+        </mat-form-field>
+        <div class="upload-img" [class.expanded]="isExpanded">
+            <div class="upload-controls" style="display: flex; align-items: center;">
+                <button mat-raised-button class="upload-btn" type="button" (click)="toggleExpand($event)">Upload Image</button>
+                <!-- Add an OK button -->
+                
+                <!-- Display the file name only if showFileName is true -->
+                <p *ngIf="showFileName && (selectedFileName || (isEditMode && post?.imagePath))" style="margin-left: 10px;">
+                    Selected file: {{selectedFileName || (isEditMode ? (post.imagePath ? post.imagePath.split('/').pop() : '') : '')}}                </p>
+                <p *ngIf="fileTypeError" style="margin-left: 10px;color:rgb(216,0,0);">{{ fileTypeError }}</p>
 
-    <button mat-flat-button type="submit">Save</button>
-</form>
+            </div>
+            <div class="image-upload-container" *ngIf="isExpanded">
+                <input type="file" id="fileInput" (change)="onFileSelected($event)" style="display: none;">
+                <label for="fileInput" class="custom-file-upload"></label>
+                <img [src]="imagePreview" *ngIf="imagePreview" alt="Image Preview">
+                <button mat-raised-button class="confirm-img-btn" type="button" (click)="onOkButtonClick()">OK</button>
+
+    <!----- <button mat-raised-button class="confirm-img-btn" type="button" (click)="onOkButtonClick()">OK</button>   ---->
+                <button mat-icon-button class="remove-image-btn" *ngIf="imagePreview" (click)="removeImage()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+        </div>
+        <br>
+        
+       <div> <button mat-flat-button type="submit">{{isEditMode ? 'Update' : 'Save'}}</button>
+        <!-- Cancel Button -->
+        <button mat-flat-button type="button" (click)="onCancel()">Cancel</button>
+    </div>
+    </form>
 </mat-card>
+
+<app-post-list></app-post-list>
+

@@ -1,5 +1,9 @@
-<app-header></app-header>
+<app-header *ngIf="router.url !== '/authentication' "></app-header>
+
+
 <main>
-    <app-post-create></app-post-create>
-    <app-post-list></app-post-list>
+    <router-outlet></router-outlet>
+
+   
+   
 </main>
